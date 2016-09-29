@@ -98,23 +98,27 @@ avg_pel_rad_ab = float(sum(pel_rad_ab)/len(pel_rad_ab))
 avg_deg_spon_ab = float(sum(deg_spon_ab)/len(deg_spon_ab))
 
 average_table = [
-		['Name', 'Total Average', 'Normal Average', 'Abnormal Average'],
-		['Pelvic Incidence: ', avg_pel_inc, avg_pel_inc_no, avg_pel_inc_ab], 
-		['Pelvic Tilt: ', avg_pel_tilt, avg_pel_tilt_no, avg_pel_tilt_ab], 
-		['Lumbar Lordosis Angle: ', avg_ll_angle, avg_ll_angle_no, avg_ll_angle_ab], 
-		['Sacral Slope: ', avg_s_slope, avg_s_slope_no, avg_s_slope_ab], 
-		['Pelvic Radius: ', avg_pel_rad, avg_pel_rad_no, avg_pel_rad_ab], 
-		['Degree Spondytolisthesis: ', avg_deg_spon, avg_deg_spon_no, avg_deg_spon_ab]
-	]
+					['Name', 'Total Average', 'Normal Average', 'Abnormal Average'],
+					['Pelvic Incidence: ', avg_pel_inc, avg_pel_inc_no, avg_pel_inc_ab], 
+					['Pelvic Tilt: ', avg_pel_tilt, avg_pel_tilt_no, avg_pel_tilt_ab], 
+					['Lumbar Lordosis Angle: ', avg_ll_angle, avg_ll_angle_no, avg_ll_angle_ab], 
+					['Sacral Slope: ', avg_s_slope, avg_s_slope_no, avg_s_slope_ab], 
+					['Pelvic Radius: ', avg_pel_rad, avg_pel_rad_no, avg_pel_rad_ab], 
+					['Degree Spondytolisthesis: ', avg_deg_spon, avg_deg_spon_no, avg_deg_spon_ab]
+				]
 
-print tabulate(average_table, headers="firstrow")
+print tabulate(average_table, headers="firstrow"), '\n'
 
-print 'Classes:'
-print '\tNormal Count: ',  classAttrib.count('NO')
-print '\tAbnormal Count: ',  classAttrib.count('AB')
-print '\tHernia Count: ',  classAttrib.count('DH')
-print '\tSpondylolisthesis Count: ', classAttrib.count('SL')
 
+classes_table = [
+					['Classes:', ' Counts:'],
+ 					['Normal Count: ',  classAttrib.count('NO')],
+					['Abnormal Count: ',  classAttrib.count('AB')]
+ 					#['Hernia Count: ',  classAttrib.count('DH')],
+ 					#['Spondylolisthesis Count: ', classAttrib.count('SL')]
+				]
+
+print tabulate(classes_table, headers="firstrow")
 
 
 
