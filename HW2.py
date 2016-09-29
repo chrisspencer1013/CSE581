@@ -77,6 +77,7 @@ for index,item in enumerate(classAttrib):
 	else:
 		print 'ERROR 1'
 
+#Average Calculations
 avg_pel_inc = float(sum(pel_inc)/len(pel_inc))
 avg_pel_tilt = float(sum(pel_tilt)/len(pel_tilt))
 avg_ll_angle = float(sum(ll_angle)/len(ll_angle))
@@ -98,6 +99,7 @@ avg_s_slope_ab = float(sum(s_slope_ab)/len(s_slope_ab))
 avg_pel_rad_ab = float(sum(pel_rad_ab)/len(pel_rad_ab))
 avg_deg_spon_ab = float(sum(deg_spon_ab)/len(deg_spon_ab))
 
+#Standard Deviation Calculations
 std_pel_inc = numpy.std(pel_inc)
 std_pel_tilt = numpy.std(pel_tilt)
 std_ll_angle = numpy.std(ll_angle)
@@ -105,21 +107,79 @@ std_s_slope = numpy.std(s_slope)
 std_pel_rad = numpy.std(pel_rad)
 std_deg_spon = numpy.std(deg_spon)
 
+std_pel_inc_no = numpy.std(pel_inc_no)
+std_pel_tilt_no = numpy.std(pel_tilt_no)
+std_ll_angle_no = numpy.std(ll_angle_no)
+std_s_slope_no = numpy.std(s_slope_no)
+std_pel_rad_no = numpy.std(pel_rad_no)
+std_deg_spon_no = numpy.std(deg_spon_no)
+
+std_pel_inc_ab = numpy.std(pel_inc_ab)
+std_pel_tilt_ab = numpy.std(pel_tilt_ab)
+std_ll_angle_ab = numpy.std(ll_angle_ab)
+std_s_slope_ab = numpy.std(s_slope_ab)
+std_pel_rad_ab = numpy.std(pel_rad_ab)
+std_deg_spon_ab = numpy.std(deg_spon_ab)
+
+
+#Median Calculations
+med_pel_inc = numpy.median(pel_inc)
+med_pel_tilt = numpy.median(pel_tilt)
+med_ll_angle = numpy.median(ll_angle)
+med_s_slope = numpy.median(s_slope)
+med_pel_rad = numpy.median(pel_rad)
+med_deg_spon = numpy.median(deg_spon)
+
+med_pel_inc_no = numpy.median(pel_inc_no)
+med_pel_tilt_no = numpy.median(pel_tilt_no)
+med_ll_angle_no = numpy.median(ll_angle_no)
+med_s_slope_no = numpy.median(s_slope_no)
+med_pel_rad_no = numpy.median(pel_rad_no)
+med_deg_spon_no = numpy.median(deg_spon_no)
+
+med_pel_inc_ab = numpy.median(pel_inc_ab)
+med_pel_tilt_ab = numpy.median(pel_tilt_ab)
+med_ll_angle_ab = numpy.median(ll_angle_ab)
+med_s_slope_ab = numpy.median(s_slope_ab)
+med_pel_rad_ab = numpy.median(pel_rad_ab)
+med_deg_spon_ab = numpy.median(deg_spon_ab)
 
 
 
-average_table = [
-					['Name', 'Total Average', 'Normal Average', 'Abnormal Average', 'Standard Deviation'],
+
+avg_table = [
+					['Name', 'All-AVG', 'Normal-AVG', 'Abnormal-AVG'],
 					['Pelvic Incidence: ', avg_pel_inc, avg_pel_inc_no, avg_pel_inc_ab], 
 					['Pelvic Tilt: ', avg_pel_tilt, avg_pel_tilt_no, avg_pel_tilt_ab], 
 					['Lumbar Lordosis Angle: ', avg_ll_angle, avg_ll_angle_no, avg_ll_angle_ab], 
 					['Sacral Slope: ', avg_s_slope, avg_s_slope_no, avg_s_slope_ab], 
 					['Pelvic Radius: ', avg_pel_rad, avg_pel_rad_no, avg_pel_rad_ab], 
 					['Degree Spondytolisthesis: ', avg_deg_spon, avg_deg_spon_no, avg_deg_spon_ab]
-				]
+			]
 
-print tabulate(average_table, headers="firstrow"), '\n'
+stdev_table = [
+					['Name', 'All-STDEV', 'Normal-STDEV', 'Abnormal-STDEV'],
+					['Pelvic Incidence: ', std_pel_inc, std_pel_inc_no, std_pel_inc_ab], 
+					['Pelvic Tilt: ', std_pel_tilt, std_pel_tilt_ab, std_pel_tilt_no], 
+					['Lumbar Lordosis Angle: ', std_ll_angle, std_ll_angle_no, std_pel_tilt_ab], 
+					['Sacral Slope: ', std_s_slope, std_s_slope_no, std_s_slope_ab], 
+					['Pelvic Radius: ', std_pel_rad, std_pel_rad_no, std_pel_rad_ab], 
+					['Degree Spondytolisthesis: ', std_deg_spon, std_deg_spon_no, std_deg_spon_ab]
+			]
 
+med_table = [
+					['Name', 'All-Median', 'Normal-Median', 'Abnormal-Median'],
+					['Pelvic Incidence: ', med_pel_inc, med_pel_inc_no, med_pel_inc_ab], 
+					['Pelvic Tilt: ', med_pel_tilt, med_pel_tilt_ab, med_pel_tilt_no], 
+					['Lumbar Lordosis Angle: ', med_ll_angle, med_ll_angle_no, med_pel_tilt_ab], 
+					['Sacral Slope: ', med_s_slope, med_s_slope_no, med_s_slope_ab], 
+					['Pelvic Radius: ', med_pel_rad, med_pel_rad_no, med_pel_rad_ab], 
+					['Degree Spondytolisthesis: ', med_deg_spon, med_deg_spon_no, med_deg_spon_ab]
+			]
+
+print tabulate(avg_table, headers="firstrow"), '\n'
+print tabulate(stdev_table, headers="firstrow"), '\n'
+print tabulate(med_table, headers="firstrow"), '\n'
 
 classes_table = [
 					['Classes:', ' Counts:'],
