@@ -1,9 +1,10 @@
 #Homework 2
 #Author: Chris Spencer
+
 import re
 from tabulate import tabulate
+import numpy
 
-#import statistics
 print '\n\t\tHomework #2\n'
 print '\t\tAuthor: Chris Spencer\n\n'
 
@@ -97,8 +98,18 @@ avg_s_slope_ab = float(sum(s_slope_ab)/len(s_slope_ab))
 avg_pel_rad_ab = float(sum(pel_rad_ab)/len(pel_rad_ab))
 avg_deg_spon_ab = float(sum(deg_spon_ab)/len(deg_spon_ab))
 
+std_pel_inc = numpy.std(pel_inc)
+std_pel_tilt = numpy.std(pel_tilt)
+std_ll_angle = numpy.std(ll_angle)
+std_s_slope = numpy.std(s_slope)
+std_pel_rad = numpy.std(pel_rad)
+std_deg_spon = numpy.std(deg_spon)
+
+
+
+
 average_table = [
-					['Name', 'Total Average', 'Normal Average', 'Abnormal Average'],
+					['Name', 'Total Average', 'Normal Average', 'Abnormal Average', 'Standard Deviation'],
 					['Pelvic Incidence: ', avg_pel_inc, avg_pel_inc_no, avg_pel_inc_ab], 
 					['Pelvic Tilt: ', avg_pel_tilt, avg_pel_tilt_no, avg_pel_tilt_ab], 
 					['Lumbar Lordosis Angle: ', avg_ll_angle, avg_ll_angle_no, avg_ll_angle_ab], 
@@ -118,7 +129,7 @@ classes_table = [
  					#['Spondylolisthesis Count: ', classAttrib.count('SL')]
 				]
 
-print tabulate(classes_table, headers="firstrow")
+print tabulate(classes_table, headers="firstrow"), '\n'
 
 
 
