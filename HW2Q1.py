@@ -194,11 +194,15 @@ classes_table = [
 print tabulate(classes_table, headers="firstrow"), '\n'
 
 print '\nQuestion 1 Part b: Scatter Plots'
-print 'Pelvic Incidence, Normal vs Abnormal:' #PROBLEM!!! they are not the same size by nature
-##matplotlib.pyplot.scatter(pel_inc_no, pel_inc_ab)
+print 'i dunno what we do here' 
 
-matplotlib.pyplot.show()
+#matplotlib.pyplot.scatter(pel_inc_no, pel_inc_no)
+#matplotlib.pyplot.scatter(pel_inc_ab, pel_inc_ab)
 
-
+#matplotlib.pyplot.show()
 
 print '\n\n'
+
+print 'Question 1 Part c:'
+print '\tNo idea...\n'
+
