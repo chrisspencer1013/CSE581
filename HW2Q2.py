@@ -11,7 +11,7 @@ sheet=wb.get_sheet_by_name('Sheet1')
 raw_lines = []
 clean_lines = []
 
-#plan: strip down to words in a list, clean out BS, use counts function
+#plan: strip down to words in a list, clean out BS, use counts function, the go for weighting
 
 #read in lines from sheet
 for x in range(1,31):
@@ -30,6 +30,6 @@ for x in range(0,30):
 
 counts = Counter(clean_lines)
 
-
+#counter works as a dictionary, so this works
 for key, value in counts.items():
 	print key, value
