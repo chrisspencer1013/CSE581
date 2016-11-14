@@ -10,19 +10,24 @@ from tweepy.streaming import StreamListener
 
 #keys here
 
+
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
  
 api = tweepy.API(auth)
  
 
-
+i=0
 class TweetListener(StreamListener):
     def on_data(self, data):
         try:
-            with open('tweets.json', 'a') as f:
+            with open('tweets4.json', 'a') as f:
                 f.write(data)
+                global i
+                i += 1
+                print(i)
                 return True
+            
         except BaseException as e:
             #print(&quot;Error on_data: %s&quot; % str(e))
             print("\nerror\n")
@@ -33,7 +38,8 @@ class TweetListener(StreamListener):
         return True
  
 twitter_stream = Stream(auth, TweetListener())
-twitter_stream.filter(track=['#trump'])
+twitter_stream.filter(track=['#trump', '#draintheswamp', '#NotMyPresident', '#trumpprotest', '#donaldtrump', '#trumpwon'])
+twitter_stream.filter(language='en')
 
 
 #http://adilmoujahid.com/posts/2014/07/twitter-analytics/
