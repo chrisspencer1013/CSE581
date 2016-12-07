@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import re
+import sys
 import csv
 from matplotlib import pyplot
 import numpy
@@ -17,28 +18,22 @@ def word_in_text(word, text):
         return True
     return False
 
-
 tweet_id=[]
 tw_text=[]
 tw_language=[]
 tw_time=[]
-tw_sentiment=[]
+tw_sentiment_bl=[]
+tw_sentiment_af=[]
 
-# term_x=[]
-# term_y=[]
-# lang_x=[]
-# lang_y=[]
-
-with open("tweets3.csv") as csv_file_in:
+with open("fulldataset.csv") as csv_file_in:
     reader = csv.DictReader(csv_file_in)
     for row in reader:
         tweet_id.append(row['tweet_id'])
         tw_text.append(row[' tweet_text'])
         tw_language.append(row[' tweet_language'])
         tw_time.append(row[' tweet_time'])
-        tw_sentiment.append(0)
-
-#tweets = [tweet_id, tw_text, tw_language, tw_time]
+        tw_sentiment_bl.append(-1)
+        tw_sentiment_af.append(0)
 
 cross_search = {        \
     'islam':0,          \
@@ -85,7 +80,7 @@ cross_search = {        \
     'disrespect':0,     \
     'foreign policy':0, \
     'Canada':0,         \
-    'Mexic':0,         \
+    'Mexic':0,          \
     'immigrant':0,      \
     'wikileak':0,       \
     'assassinat':0,     \
@@ -150,38 +145,34 @@ country = {
 
 
 
-for text in tw_text:
-    # for key, value in afinn.items():
-    #     if word_in_text(key, text):
-    #         tw_sentiment = 
+for index, text in enumerate(tw_text):
     for key, value in cross_search.items():
         if word_in_text(key, text):
             cross_search[key]+=1
+    print("\r", 'Keyword Analysis:', index+1, 'out of ', len(tweet_id), 'completed.', end="")
 
-for lang in tw_language:
+print("\r")
+for index, lang in enumerate(tw_language):
     for key, value in country.items():
         if word_in_text(key, lang):
             country[key]+=1
+    print("\r", 'Country Analysis:', index+1, 'out of ', len(tweet_id), 'completed.', end="")
 
-print("\nTotal Tweets:", len(tweet_id))
+print("\n\nTotal Tweets:", len(tweet_id))
 
 print('\nKeyword count:')
 for key, value in cross_search.items():
-    # term_y.append(value)
-    # term_x.append(key)
     print('\t',key, value)
 
 print('\nGroup by country:')
 for key, value in country.items():
-    # lang_y.append(value)
-    # lang_x.append(key)
     print('\t',key, value)
 
 pos_tw = 0
 neg_tw = 0
 nue_tw = 0
 
-for text in tw_text:
+for index, text in enumerate(tw_text):
     blob = TB(text)
     #print(text, blob.sentiment.polarity)
     if (blob.sentiment.polarity > 0):
@@ -190,10 +181,12 @@ for text in tw_text:
         neg_tw +=1
     else:
         nue_tw +=1
+    tw_sentiment_bl[index] = blob.sentiment.polarity
 
-print('Positive Tweets (blob api):', pos_tw)
+print('\n\nPositive Tweets (blob api):', pos_tw)
 print('Negative Tweets (blob api):', neg_tw)
 print('Nuetral Tweets (blob api):', nue_tw)
+print('\n')
 
 
 #todo: track which hashtags are used together? - entities hashtags
@@ -205,28 +198,42 @@ print('Nuetral Tweets (blob api):', nue_tw)
 #retweets over time
 #word cloud if there is time
 #print(tw_sentiment)
-words_found = 0
+
 for index, tweet in enumerate(tw_text):
     for key, value in afinn_dic.items():
         if(word_in_text(key, tweet)):
-            tw_sentiment[index] += value
-            words_found +=1
-            print('Found one!', words_found)
-    print('We are now on tweet number: ', index)
+            tw_sentiment_af[index] += value
+    print("\r", 'AFINN Sentiment Analysis:', index+1, 'out of', len(tweet_id), 'tweets completed.', end="")
 
 
 pos_tw = 0
 neg_tw = 0
 nue_tw = 0
+high =  0
+low = 0
 
-for sen in tw_sentiment:
+for sen in tw_sentiment_af:
     if sen > 0:
+        if sen > high:
+            high = sen
         pos_tw +=1
     elif sen < 0:
+        if sen < low:
+            low = sen
         neg_tw +=1
     else:
         nue_tw +=1
 
-print('Positive Tweets (afinn method):', pos_tw)
+print('\nHigh:',high)
+print('Low:',low)
+
+print('\nPositive Tweets (afinn method):', pos_tw)
 print('Negative Tweets (afinn method):', neg_tw)
 print('Nuetral Tweets (afinn method):', nue_tw)
+
+with open('results.csv', 'a') as results_file:
+    writer = csv.writer(results_file, delimiter= '|')
+    writer.writerow(['Index','Tweet Text','AFINN Sentiment','Blob Sentiment'])
+    for index, tweet in enumerate(tw_text):
+        writer.writerow([index+1, tweet, tw_sentiment_af[index], tw_sentiment_bl[index]])
+print('Calculations Complete')
